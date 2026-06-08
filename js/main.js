@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const formStatus = document.getElementById("formStatus");
   const themeToggle = document.getElementById("themeToggle");
   const todaySpecialName = document.getElementById("todaySpecialName");
+  const heroVideo = document.querySelector(".hero-video");
   const animatedElements = document.querySelectorAll(".reveal");
   const formFieldIds = ["name", "email", "phone", "date", "guests", "message"];
 
@@ -54,6 +55,35 @@ document.addEventListener("DOMContentLoaded", () => {
   const setTodaySpecial = () => {
     const dayIndex = new Date().getDay();
     todaySpecialName.textContent = todaysSpecials[dayIndex];
+  };
+
+  const keepHeroVideoLooping = () => {
+    if (!heroVideo) {
+      return;
+    }
+
+    const playHeroVideo = () => {
+      const playPromise = heroVideo.play();
+
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          // Ignore autoplay interruptions and let the browser retry naturally.
+        });
+      }
+    };
+
+    heroVideo.addEventListener("ended", () => {
+      heroVideo.currentTime = 0;
+      playHeroVideo();
+    });
+
+    heroVideo.addEventListener("canplay", playHeroVideo, { once: true });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && heroVideo.paused) {
+        playHeroVideo();
+      }
+    });
   };
 
   const filterMenu = (filter) => {
@@ -233,6 +263,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setRevealMetadata();
   activateVisibleTestimonial();
+  keepHeroVideoLooping();
   reviewsCarousel?.addEventListener("slid.bs.carousel", activateVisibleTestimonial);
 
   navLinks.forEach((link) => {
