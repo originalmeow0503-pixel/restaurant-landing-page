@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMBER Fine Dining</title>
+  <meta
+    name="description"
+    content="EMBER Fine Dining offers crafted tasting experiences, signature dishes, and luxury ambience in a premium editorial-inspired restaurant landing page."
+  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  >
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  >
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- Sticky navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light ember-navbar fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand ember-brand" href="#home" aria-label="EMBER Fine Dining home">
+        <span class="brand-title">EMBER</span>
+        <span class="brand-subtitle">Fine Dining</span>
+      </a>
+
+      <div class="d-flex align-items-center gap-2 order-lg-3">
+        <button
+          class="btn btn-link theme-toggle"
+          id="themeToggle"
+          type="button"
+          aria-label="Toggle dark mode"
+          aria-pressed="false"
+        >
+          <i class="bi bi-moon-stars"></i>
+        </button>
+        <a class="btn btn-gold d-none d-sm-inline-flex" href="#contact">Reserve a Table</a>
+        <button
+          class="navbar-toggler border-0 shadow-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu"
+          aria-controls="navbarMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse justify-content-center order-lg-2" id="navbarMenu">
+        <ul class="navbar-nav gap-lg-2">
+          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item d-sm-none"><a class="nav-link reserve-mobile" href="#contact">Reserve a Table</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <!-- Hero -->
+    <section class="hero-section position-relative overflow-hidden" id="home">
+      <div class="hero-text-bg" aria-hidden="true">EMBER</div>
+      <div class="hero-accent hero-accent-left" aria-hidden="true"></div>
+      <div class="hero-accent hero-accent-right" aria-hidden="true"></div>
+
+      <div class="container">
+        <div class="row align-items-center gy-5 hero-row">
+          <div class="col-lg-5">
+            <div class="hero-copy reveal-up">
+              <p class="eyebrow">Fine dining &amp; crafted experiences</p>
+              <h1>Taste the art of <span>fine dining</span></h1>
+              <p class="hero-description">
+                At EMBER, every plate is composed with precision, seasonal produce, and a sense of theatre that lingers long after the final course.
+              </p>
+              <div class="hero-actions">
+                <a class="btn btn-dark-custom" href="#menu">Explore Menu</a>
+                <a class="btn btn-outline-dark-custom" href="#contact">Reserve Table</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="hero-visual reveal-up">
+              <div class="hero-image-frame">
+                <img
+                  src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=1200&q=80"
+                  alt="Plated premium lamb dish served on a white plate"
+                  class="img-fluid hero-image"
+                >
+              </div>
+
+              <button class="story-pill" type="button" aria-label="Discover our story">
+                <span class="story-icon"><i class="bi bi-play-fill"></i></span>
+                <span class="story-copy">
+                  <span>Watch</span>
+                  <strong>Our Story</strong>
+                </span>
+              </button>
+
+              <article class="floating-card reservation-card">
+                <div class="floating-icon"><i class="bi bi-calendar2-check"></i></div>
+                <p class="floating-label">Reservation</p>
+                <h2>Book your table for an unforgettable evening.</h2>
+                <a href="#contact">Book now <i class="bi bi-arrow-right"></i></a>
+              </article>
+
+              <article class="floating-card special-card">
+                <div class="floating-icon"><i class="bi bi-stars"></i></div>
+                <p class="floating-label">Chef&rsquo;s Special</p>
+                <h2>Truffle Mushroom Risotto with aged parmesan.</h2>
+                <a href="#menu">View details <i class="bi bi-arrow-right"></i></a>
+              </article>
+
+              <div class="today-badge" id="todaySpecialBadge" aria-live="polite">
+                Today&rsquo;s Special: Loading...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signature menu -->
+    <section class="menu-section section-space" id="menu">
+      <div class="container">
+        <div class="section-heading reveal-up">
+          <div>
+            <p class="eyebrow">Our bestsellers</p>
+            <h2>Signature Dishes</h2>
+          </div>
+          <div class="category-filter" role="tablist" aria-label="Filter dishes">
+            <button class="filter-btn active" type="button" data-filter="all">All</button>
+            <button class="filter-btn" type="button" data-filter="starters">Starters</button>
+            <button class="filter-btn" type="button" data-filter="mains">Mains</button>
+            <button class="filter-btn" type="button" data-filter="desserts">Desserts</button>
+          </div>
+        </div>
+
+        <div class="row g-4" id="menuGrid">
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="starters">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1625943555419-56a2cb596640?auto=format&fit=crop&w=900&q=80"
+                alt="Seared scallops plated with puree and herbs"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Seared Scallops</h3>
+                  <span>₹649</span>
+                </div>
+                <p>Pan-seared scallops with cauliflower puree and brown butter crumble.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="mains">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=900&q=80"
+                alt="Truffle pasta served in a dark bowl"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Truffle Pasta</h3>
+                  <span>₹599</span>
+                </div>
+                <p>Handmade tagliatelle with black truffle cream, parmesan, and thyme.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="mains">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=900&q=80"
+                alt="Grilled salmon plated with vegetables and sauce"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Grilled Salmon</h3>
+                  <span>₹699</span>
+                </div>
+                <p>Norwegian salmon with asparagus, citrus glaze, and lemon beurre blanc.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="mains">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=80"
+                alt="Roasted lamb rack arranged with jus on a plate"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Lamb Rack</h3>
+                  <span>₹899</span>
+                </div>
+                <p>Herb-crusted lamb with rosemary jus and charred seasonal vegetables.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="desserts">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=900&q=80"
+                alt="Chocolate fondant dessert with ice cream"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Chocolate Fondant</h3>
+                  <span>₹449</span>
+                </div>
+                <p>Warm fondant with vanilla bean ice cream and cocoa soil.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="starters">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=80"
+                alt="Burrata salad with tomatoes and herbs"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Heirloom Burrata</h3>
+                  <span>₹525</span>
+                </div>
+                <p>Creamy burrata, heirloom tomatoes, basil oil, and toasted sourdough shards.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="desserts">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80"
+                alt="Lemon tart with berries on a dessert plate"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Citrus Tart</h3>
+                  <span>₹399</span>
+                </div>
+                <p>Silken lemon curd tart with candied zest and fresh berries.</p>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-sm-6 col-lg-3 menu-item reveal-up" data-category="mains">
+            <article class="dish-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80"
+                alt="Beef steak plated with roasted potatoes"
+                class="dish-image"
+              >
+              <div class="dish-content">
+                <div class="dish-head">
+                  <h3>Charred Tenderloin</h3>
+                  <span>₹945</span>
+                </div>
+                <p>Wood-fired tenderloin with pomme puree, jus, and smoked shallots.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section class="about-section section-space" id="about">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-5">
+            <div class="about-copy reveal-up">
+              <p class="eyebrow">Our story</p>
+              <h2>More than a meal, it&rsquo;s an experience.</h2>
+              <p>
+                Founded with a passion for exceptional food and warm hospitality, EMBER blends seasonal ingredients, modern technique, and timeless service into evenings that feel intimate and elevated.
+              </p>
+              <p>
+                From candlelit tables to thoughtful wine pairings, every detail is curated to create a memorable atmosphere for celebrations, quiet moments, and shared stories.
+              </p>
+            </div>
+
+            <div class="highlight-grid reveal-up">
+              <article class="highlight-card">
+                <i class="bi bi-flower1"></i>
+                <h3>Sustainable</h3>
+                <p>Ethically sourced produce and mindful seasonal menus.</p>
+              </article>
+              <article class="highlight-card">
+                <i class="bi bi-basket2"></i>
+                <h3>Fresh Ingredients</h3>
+                <p>Daily ingredients selected from trusted local partners.</p>
+              </article>
+              <article class="highlight-card">
+                <i class="bi bi-lamp"></i>
+                <h3>Luxury Ambience</h3>
+                <p>Soft lighting, sculpted interiors, and refined comfort.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="about-visual reveal-up">
+              <img
+                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1400&q=80"
+                alt="Elegant dining room with warm lighting and set tables"
+                class="img-fluid about-image"
+              >
+              <div class="about-floating-note">
+                <p class="floating-label">EMBER Promise</p>
+                <h3>Thoughtful hospitality, beautifully plated.</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="gallery-section section-space" id="gallery">
+      <div class="container">
+        <div class="section-heading reveal-up">
+          <div>
+            <p class="eyebrow">Moments in focus</p>
+            <h2>Gallery</h2>
+          </div>
+        </div>
+
+        <div class="row g-3 gallery-grid">
+          <div class="col-6 col-lg-3 reveal-up">
+            <button
+              class="gallery-item"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-image="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=80"
+              data-alt="Fine dining table setting with wine glasses and plates"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80"
+                alt="Fine dining table setting with wine glasses and plates"
+              >
+            </button>
+          </div>
+          <div class="col-6 col-lg-3 reveal-up">
+            <button
+              class="gallery-item"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-image="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80"
+              data-alt="Chef plating a gourmet dish in a professional kitchen"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=800&q=80"
+                alt="Chef plating a gourmet dish in a professional kitchen"
+              >
+            </button>
+          </div>
+          <div class="col-12 col-lg-6 reveal-up">
+            <button
+              class="gallery-item large"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-image="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1400&q=80"
+              data-alt="Luxury restaurant interior with pendant lights and diners"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1100&q=80"
+                alt="Luxury restaurant interior with pendant lights and diners"
+              >
+            </button>
+          </div>
+          <div class="col-6 col-lg-4 reveal-up">
+            <button
+              class="gallery-item"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-image="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80"
+              data-alt="Gourmet dish arranged with vegetables and sauce"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+                alt="Gourmet dish arranged with vegetables and sauce"
+              >
+            </button>
+          </div>
+          <div class="col-6 col-lg-4 reveal-up">
+            <button
+              class="gallery-item"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-image="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80"
+              data-alt="Steak entree served on a dark premium plate"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80"
+                alt="Steak entree served on a dark premium plate"
+              >
+            </button>
+          </div>
+          <div class="col-12 col-lg-4 reveal-up">
+            <button
+              class="gallery-item"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#galleryModal"
+              data-image="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=1200&q=80"
+              data-alt="Dessert and coffee on an elegant restaurant table"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=800&q=80"
+                alt="Dessert and coffee on an elegant restaurant table"
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section class="testimonials-section section-space" id="reviews">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-4">
+            <div class="testimonial-copy reveal-up">
+              <p class="eyebrow">What our guests say</p>
+              <h2>Moments that stay with you</h2>
+              <p>Warm service, memorable courses, and evenings worth celebrating.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            <div id="reviewsCarousel" class="carousel slide reveal-up" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <article class="testimonial-card">
+                    <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p>
+                      “The ambience, the food, and the service were everything we hoped for and more. A flawless anniversary dinner.”
+                    </p>
+                    <h3>Ananya S.</h3>
+                  </article>
+                </div>
+                <div class="carousel-item">
+                  <article class="testimonial-card">
+                    <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p>
+                      “Every bite felt considered. The chef&rsquo;s tasting menu was beautifully paced, rich, and unforgettable.”
+                    </p>
+                    <h3>Vikram R.</h3>
+                  </article>
+                </div>
+                <div class="carousel-item">
+                  <article class="testimonial-card">
+                    <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+                    <p>
+                      “EMBER never disappoints. Elegant but never stiff, and the lamb rack is one of the best in the city.”
+                    </p>
+                    <h3>Neha K.</h3>
+                  </article>
+                </div>
+                <div class="carousel-item">
+                  <article class="testimonial-card">
+                    <div class="stars" aria-label="4 out of 5 stars">★★★★☆</div>
+                    <p>
+                      “A refined setting for client dinners. The team handled every detail with professionalism and warmth.”
+                    </p>
+                    <h3>Rohan M.</h3>
+                  </article>
+                </div>
+              </div>
+              <div class="carousel-controls">
+                <button
+                  class="carousel-control-prev position-static"
+                  type="button"
+                  data-bs-target="#reviewsCarousel"
+                  data-bs-slide="prev"
+                >
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                  class="carousel-control-next position-static"
+                  type="button"
+                  data-bs-target="#reviewsCarousel"
+                  data-bs-slide="next"
+                >
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section section-space" id="contact">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-xl-7">
+            <div class="contact-card reveal-up">
+              <div class="row g-4">
+                <div class="col-lg-7">
+                  <p class="eyebrow">Reserve your table</p>
+                  <h2>Plan your next evening at EMBER.</h2>
+
+                  <form id="reservationForm" novalidate>
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <label class="form-label" for="name">Name</label>
+                        <input class="form-control" id="name" name="name" type="text" required>
+                        <div class="error-message" id="nameError"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="email">Email</label>
+                        <input class="form-control" id="email" name="email" type="email" required>
+                        <div class="error-message" id="emailError"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="phone">Phone</label>
+                        <input class="form-control" id="phone" name="phone" type="tel" required>
+                        <div class="error-message" id="phoneError"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="date">Date</label>
+                        <input class="form-control" id="date" name="date" type="date" required>
+                        <div class="error-message" id="dateError"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="guests">Guests</label>
+                        <select class="form-select" id="guests" name="guests" required>
+                          <option value="">Select guests</option>
+                          <option value="2">2 Guests</option>
+                          <option value="4">4 Guests</option>
+                          <option value="6">6 Guests</option>
+                          <option value="8">8+ Guests</option>
+                        </select>
+                        <div class="error-message" id="guestsError"></div>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="form-label" for="occasion">Occasion</label>
+                        <select class="form-select" id="occasion" name="occasion">
+                          <option value="">Select occasion</option>
+                          <option value="anniversary">Anniversary</option>
+                          <option value="birthday">Birthday</option>
+                          <option value="business">Business dinner</option>
+                          <option value="casual">Casual evening</option>
+                        </select>
+                      </div>
+                      <div class="col-12">
+                        <label class="form-label" for="message">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                        <div class="error-message" id="messageError"></div>
+                      </div>
+                      <div class="col-12">
+                        <button class="btn btn-dark-custom" type="submit">Reserve Now</button>
+                      </div>
+                      <div class="col-12">
+                        <p class="form-status" id="formStatus" aria-live="polite"></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div class="col-lg-5">
+                  <div class="contact-details">
+                    <p class="eyebrow">Visit us</p>
+                    <h3>123 Culinary Street, Bandra, Mumbai 400050</h3>
+                    <ul class="contact-list list-unstyled">
+                      <li><i class="bi bi-geo-alt"></i><span>123 Culinary Street, Bandra, Mumbai 400050</span></li>
+                      <li><i class="bi bi-telephone"></i><a href="tel:+919876543210">+91 98765 43210</a></li>
+                      <li><i class="bi bi-envelope"></i><a href="mailto:hello@emberdining.com">hello@emberdining.com</a></li>
+                    </ul>
+                    <div class="social-links" aria-label="Social links">
+                      <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                      <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                      <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                      <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xl-5">
+            <div class="map-card reveal-up">
+              <iframe
+                title="EMBER Fine Dining location map"
+                src="https://www.google.com/maps?q=Bandra%20Mumbai&z=13&output=embed"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-3">
+          <a class="footer-brand" href="#home">EMBER</a>
+          <p class="footer-copy">
+            Crafting memorable dining experiences through passion, creativity, and the finest ingredients.
+          </p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h3>Opening Hours</h3>
+          <p>Monday - Friday<br>12:00 PM - 11:00 PM</p>
+          <p>Saturday - Sunday<br>11:00 AM - 12:00 AM</p>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <h3>Quick Links</h3>
+          <ul class="footer-links list-unstyled">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h3>Follow Us</h3>
+          <div class="social-links" aria-label="Footer social links">
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="bi bi-pinterest"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 EMBER Fine Dining. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Gallery lightbox -->
+  <div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content gallery-modal-content">
+        <div class="modal-header border-0">
+          <h2 class="modal-title fs-5" id="galleryModalLabel">Gallery Preview</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <img id="galleryModalImage" src="" alt="" class="img-fluid rounded-4">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
