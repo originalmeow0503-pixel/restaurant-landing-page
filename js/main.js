@@ -7,20 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const menuItems = document.querySelectorAll(".menu-item");
   const galleryItems = document.querySelectorAll(".gallery-item");
   const galleryModalImage = document.getElementById("galleryModalImage");
+  const reviewsCarousel = document.getElementById("reviewsCarousel");
   const reservationForm = document.getElementById("reservationForm");
   const formStatus = document.getElementById("formStatus");
   const themeToggle = document.getElementById("themeToggle");
-  const todaySpecialBadge = document.getElementById("todaySpecialBadge");
-  const animatedElements = document.querySelectorAll(".reveal-up");
+  const todaySpecialName = document.getElementById("todaySpecialName");
+  const animatedElements = document.querySelectorAll(".reveal");
+  const formFieldIds = ["name", "email", "phone", "date", "guests", "message"];
 
   const todaysSpecials = {
-    0: "Today’s Special: Citrus Tart Sunday",
-    1: "Today’s Special: Black Truffle Pasta Monday",
-    2: "Today’s Special: Charred Tenderloin Tuesday",
-    3: "Today’s Special: Chef’s Seafood Selection Wednesday",
-    4: "Today’s Special: Slow-Roasted Lamb Thursday",
-    5: "Today’s Special: Ember Tasting Menu Friday",
-    6: "Today’s Special: Signature Dessert Saturday"
+    0: "Citrus Tart",
+    1: "Black Truffle Pasta",
+    2: "Charred Tenderloin",
+    3: "Chef’s Seafood Selection",
+    4: "Slow-Roasted Lamb",
+    5: "Borddeaux & Brich Tasting Menu",
+    6: "Signature Dessert"
   };
 
   const applyNavbarState = () => {
@@ -51,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const setTodaySpecial = () => {
     const dayIndex = new Date().getDay();
-    todaySpecialBadge.textContent = todaysSpecials[dayIndex];
+    todaySpecialName.textContent = todaysSpecials[dayIndex];
   };
 
   const filterMenu = (filter) => {
@@ -62,9 +64,28 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
+  const setRevealMetadata = () => {
+    document.querySelectorAll("#menuGrid .menu-item").forEach((item, index) => {
+      item.style.setProperty("--reveal-delay", `${Math.min(index, 5) * 80}ms`);
+    });
+
+    document.querySelectorAll(".gallery-grid .reveal").forEach((item, index) => {
+      item.style.setProperty("--reveal-delay", `${index * 70}ms`);
+    });
+
+    document.querySelectorAll("#reviewsCarousel .testimonial-card").forEach((item, index) => {
+      item.style.setProperty("--reveal-delay", `${index * 90}ms`);
+    });
+
+    document.querySelector(".about-copy")?.setAttribute("data-reveal-origin", "left");
+    document.querySelector(".about-visual")?.setAttribute("data-reveal-origin", "right");
+    document.querySelector(".contact-card")?.setAttribute("data-reveal-origin", "left");
+    document.querySelector(".map-card")?.setAttribute("data-reveal-origin", "right");
+  };
+
   const getStoredTheme = () => {
     try {
-      return window.localStorage.getItem("ember-theme");
+      return window.localStorage.getItem("borddeaux-brich-theme");
     } catch (error) {
       return null;
     }
@@ -72,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const storeTheme = (theme) => {
     try {
-      window.localStorage.setItem("ember-theme", theme);
+      window.localStorage.setItem("borddeaux-brich-theme", theme);
     } catch (error) {
       // Ignore storage failures so the visual toggle still works everywhere.
     }
@@ -91,97 +112,128 @@ document.addEventListener("DOMContentLoaded", () => {
   const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
   const validatePhone = (value) => value.replace(/\D/g, "").length >= 10;
 
+  const setFormStatus = (message = "", type = "") => {
+    formStatus.textContent = message;
+    formStatus.classList.remove("is-visible", "is-success", "is-error");
+
+    if (!message) {
+      return;
+    }
+
+    formStatus.classList.add("is-visible");
+    if (type) {
+      formStatus.classList.add(type === "success" ? "is-success" : "is-error");
+    }
+  };
+
   const setFieldError = (fieldId, message) => {
     const field = document.getElementById(fieldId);
     const errorNode = document.getElementById(`${fieldId}Error`);
 
     field.classList.toggle("is-invalid", Boolean(message));
+    field.setAttribute("aria-invalid", String(Boolean(message)));
+    field.setAttribute("aria-describedby", `${fieldId}Error`);
     errorNode.textContent = message;
   };
 
+  const validateField = (fieldId) => {
+    const field = document.getElementById(fieldId);
+    const value = field.value.trim();
+
+    switch (fieldId) {
+      case "name":
+        setFieldError(fieldId, value ? "" : "Please enter your name.");
+        return Boolean(value);
+      case "email":
+        if (!value) {
+          setFieldError(fieldId, "Please enter your email address.");
+          return false;
+        }
+        if (!validateEmail(value)) {
+          setFieldError(fieldId, "Please enter a valid email address.");
+          return false;
+        }
+        setFieldError(fieldId, "");
+        return true;
+      case "phone":
+        if (!value) {
+          setFieldError(fieldId, "Please enter your phone number.");
+          return false;
+        }
+        if (!validatePhone(value)) {
+          setFieldError(fieldId, "Phone number must include at least 10 digits.");
+          return false;
+        }
+        setFieldError(fieldId, "");
+        return true;
+      case "date":
+        setFieldError(fieldId, value ? "" : "Please select a reservation date.");
+        return Boolean(value);
+      case "guests":
+        setFieldError(fieldId, value ? "" : "Please select the number of guests.");
+        return Boolean(value);
+      case "message":
+        if (!value) {
+          setFieldError(fieldId, "Please share a few reservation details.");
+          return false;
+        }
+        if (value.length < 12) {
+          setFieldError(fieldId, "Message should be at least 12 characters long.");
+          return false;
+        }
+        setFieldError(fieldId, "");
+        return true;
+      default:
+        return true;
+    }
+  };
+
   const validateForm = () => {
-    const formData = {
-      name: document.getElementById("name").value.trim(),
-      email: document.getElementById("email").value.trim(),
-      phone: document.getElementById("phone").value.trim(),
-      date: document.getElementById("date").value.trim(),
-      guests: document.getElementById("guests").value.trim(),
-      message: document.getElementById("message").value.trim()
+    let firstInvalidField = null;
+
+    formFieldIds.forEach((fieldId) => {
+      const isValid = validateField(fieldId);
+      if (!isValid && !firstInvalidField) {
+        firstInvalidField = document.getElementById(fieldId);
+      }
+    });
+
+    return {
+      isValid: !firstInvalidField,
+      firstInvalidField
     };
+  };
 
-    let isValid = true;
-
-    if (!formData.name) {
-      setFieldError("name", "Please enter your name.");
-      isValid = false;
-    } else {
-      setFieldError("name", "");
-    }
-
-    if (!formData.email) {
-      setFieldError("email", "Please enter your email address.");
-      isValid = false;
-    } else if (!validateEmail(formData.email)) {
-      setFieldError("email", "Please enter a valid email address.");
-      isValid = false;
-    } else {
-      setFieldError("email", "");
-    }
-
-    if (!formData.phone) {
-      setFieldError("phone", "Please enter your phone number.");
-      isValid = false;
-    } else if (!validatePhone(formData.phone)) {
-      setFieldError("phone", "Phone number must include at least 10 digits.");
-      isValid = false;
-    } else {
-      setFieldError("phone", "");
-    }
-
-    if (!formData.date) {
-      setFieldError("date", "Please select a reservation date.");
-      isValid = false;
-    } else {
-      setFieldError("date", "");
-    }
-
-    if (!formData.guests) {
-      setFieldError("guests", "Please select the number of guests.");
-      isValid = false;
-    } else {
-      setFieldError("guests", "");
-    }
-
-    if (!formData.message) {
-      setFieldError("message", "Please share a few reservation details.");
-      isValid = false;
-    } else if (formData.message.length < 12) {
-      setFieldError("message", "Message should be at least 12 characters long.");
-      isValid = false;
-    } else {
-      setFieldError("message", "");
-    }
-
-    return isValid;
+  const activateVisibleTestimonial = () => {
+    reviewsCarousel?.querySelectorAll(".carousel-item.active .testimonial-card").forEach((card) => {
+      card.classList.add("reveal-active");
+    });
   };
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    animatedElements.forEach((element) => element.classList.add("is-visible"));
+    animatedElements.forEach((element) => element.classList.add("reveal-active"));
   } else {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("is-visible");
+            entry.target.classList.add("reveal-active");
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.18 }
+      {
+        threshold: 0.14,
+        rootMargin: "0px 0px -8% 0px"
+      }
     );
 
     animatedElements.forEach((element) => revealObserver.observe(element));
   }
+
+  setRevealMetadata();
+  activateVisibleTestimonial();
+  reviewsCarousel?.addEventListener("slid.bs.carousel", activateVisibleTestimonial);
 
   navLinks.forEach((link) => {
     link.addEventListener("click", () => {
@@ -210,23 +262,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   reservationForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    formStatus.textContent = "";
+    setFormStatus();
 
-    if (!validateForm()) {
-      formStatus.textContent = "Please review the highlighted fields and try again.";
-      formStatus.style.color = "#b02a37";
+    const { isValid, firstInvalidField } = validateForm();
+    if (!isValid) {
+      setFormStatus("Please review the highlighted fields and try again.", "error");
+      firstInvalidField?.focus();
       return;
     }
 
-    formStatus.textContent = "Reservation request received. We’ll contact you shortly.";
-    formStatus.style.color = "#2f6b2f";
+    setFormStatus("Reservation request received. We’ll contact you shortly.", "success");
     reservationForm.reset();
+    formFieldIds.forEach((fieldId) => setFieldError(fieldId, ""));
   });
 
-  ["name", "email", "phone", "date", "guests", "message"].forEach((fieldId) => {
+  formFieldIds.forEach((fieldId) => {
     const field = document.getElementById(fieldId);
-    field.addEventListener("input", validateForm);
-    field.addEventListener("blur", validateForm);
+    const events = field.tagName === "SELECT" || field.type === "date"
+      ? ["change", "blur"]
+      : ["input", "blur"];
+
+    events.forEach((eventName) => {
+      field.addEventListener(eventName, () => {
+        validateField(fieldId);
+        if (formStatus.classList.contains("is-error")) {
+          setFormStatus();
+        }
+      });
+    });
   });
 
   themeToggle.addEventListener("click", () => {

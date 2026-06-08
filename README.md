@@ -1,7 +1,7 @@
-# EMBER Fine Dining - Restaurant Landing Page
+# Borddeaux & Brich Fine Dining - Restaurant Landing Page
 
 ## Project Name
-EMBER Fine Dining is a premium editorial-inspired restaurant landing page built as a responsive single-page website.
+Borddeaux & Brich Fine Dining is a premium editorial-inspired restaurant landing page built as a responsive single-page website.
 
 ## Features
 - Sticky responsive navbar with smooth scrolling and active section highlight
