@@ -345,19 +345,53 @@ body.dark-mode .hero-text-bg {
 
 .hero-visual {
   position: relative;
-  min-height: 38rem;
+  min-height: 42rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1.6rem 1.35rem 4.8rem 2.25rem;
+  border-radius: 3rem;
+  isolation: isolate;
+}
+
+.hero-visual::before {
+  content: "";
+  position: absolute;
+  inset: 0.9rem 0 0.7rem 1.8rem;
+  border-radius: 3rem;
+  background: linear-gradient(180deg, rgba(17, 17, 17, 0.09), rgba(17, 17, 17, 0.04));
+  box-shadow: 0 26px 72px rgba(17, 17, 17, 0.08);
+  z-index: 0;
+}
+
+body.dark-mode .hero-visual::before {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.018));
+  box-shadow: 0 28px 74px rgba(0, 0, 0, 0.28);
 }
 
 .hero-image-frame {
   position: relative;
-  width: min(100%, 42rem);
-  height: 42rem;
+  z-index: 2;
+  width: min(100%, 40.75rem);
+  aspect-ratio: 1 / 1;
+  height: auto;
   margin-left: auto;
-  border-radius: 2.4rem;
+  border-radius: 2.65rem;
   overflow: hidden;
   box-shadow: 0 38px 88px rgba(17, 17, 17, 0.2);
   background: #111111;
   isolation: isolate;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.hero-image-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-video {
@@ -366,7 +400,7 @@ body.dark-mode .hero-text-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 56% center;
+  object-position: 50% 58%;
   border-radius: inherit;
   display: block;
   background: #111111;
@@ -391,6 +425,11 @@ body.dark-mode .hero-text-bg {
   display: none !important;
 }
 
+.hero-video::-webkit-media-controls-overlay-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 .hero-video::-webkit-media-controls-start-playback-button {
   display: none !important;
   -webkit-appearance: none;
@@ -400,7 +439,7 @@ body.dark-mode .hero-text-bg {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0.155));
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.132));
   pointer-events: none;
 }
 
@@ -464,17 +503,18 @@ body.dark-mode .hero-text-bg {
 .hero-floating-card {
   z-index: 3;
   will-change: transform;
+  backdrop-filter: blur(12px);
 }
 
 .reservation-card {
-  top: 4rem;
-  right: -1rem;
+  top: 4.1rem;
+  right: 0.15rem;
   animation: heroCardFloat 2.4s infinite ease-in-out;
 }
 
 .special-card {
-  bottom: 3rem;
-  right: 4rem;
+  bottom: 2.65rem;
+  right: 2.6rem;
   background: #111111;
   color: #f8f6f1;
   animation: heroCardFloat 2.4s infinite ease-in-out 0.3s;
@@ -490,8 +530,8 @@ body.dark-mode .special-card {
 
 .today-badge {
   position: absolute;
-  left: 4rem;
-  top: 3rem;
+  left: 2.1rem;
+  top: 2.2rem;
   z-index: 3;
   display: inline-flex;
   flex-direction: column;
@@ -1008,15 +1048,25 @@ body.dark-mode .site-footer {
 
 @media (max-width: 1199.98px) {
   .hero-visual {
-    min-height: 34rem;
+    min-height: 38rem;
+    padding: 1.35rem 1rem 4.2rem 1.4rem;
+  }
+
+  .hero-visual::before {
+    inset: 0.7rem 0 0.45rem 1rem;
   }
 
   .reservation-card {
-    right: 1rem;
+    right: 0.25rem;
   }
 
   .special-card {
-    right: 1.5rem;
+    right: 1.65rem;
+  }
+
+  .today-badge {
+    left: 1.4rem;
+    top: 1.65rem;
   }
 
   .highlight-grid {
@@ -1059,14 +1109,23 @@ body.dark-mode .site-footer {
   .hero-visual {
     min-height: auto;
     padding-bottom: 12rem;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .hero-visual::before {
+    inset: 0.35rem 0 3.9rem 0;
+    border-radius: 2.35rem;
   }
 
   .hero-image-frame {
-    height: 32rem;
+    width: min(100%, 32rem);
+    border-radius: 2.25rem;
   }
 
   .hero-video {
-    object-position: 54% center;
+    object-position: 51% 57%;
   }
 
   .reservation-card {
@@ -1122,15 +1181,21 @@ body.dark-mode .site-footer {
 
   .hero-visual {
     min-height: auto;
-    padding-bottom: 12rem;
+    padding: 0.8rem 0.8rem 10.9rem;
+  }
+
+  .hero-visual::before {
+    inset: 0 0 3.35rem;
+    border-radius: 2rem;
   }
 
   .hero-image-frame {
-    height: 25rem;
+    width: 100%;
+    border-radius: 2rem;
   }
 
   .hero-video {
-    object-position: 57% center;
+    object-position: 52% 59%;
   }
 
   .floating-card {
@@ -1156,20 +1221,20 @@ body.dark-mode .site-footer {
   }
 
   .reservation-card {
-    top: 1rem;
-    right: 0.75rem;
+    top: 0.9rem;
+    right: 0.85rem;
   }
 
   .special-card {
     left: auto;
-    right: 0.75rem;
-    bottom: -2.1rem;
+    right: 0.85rem;
+    bottom: -1.8rem;
   }
 
   .today-badge {
     position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
+    top: 0.85rem;
+    left: 0.85rem;
     min-width: 10.25rem;
     margin-top: 0;
     padding: 0.8rem 0.95rem 0.85rem;
@@ -1218,11 +1283,15 @@ body.dark-mode .site-footer {
   }
 
   .hero-video {
-    object-position: 59% center;
+    object-position: 52% 61%;
   }
 
   .hero-visual {
-    padding-bottom: 11.5rem;
+    padding-bottom: 10rem;
+  }
+
+  .hero-visual::before {
+    inset: 0 0 2.85rem;
   }
 
   .floating-card {
@@ -1236,17 +1305,17 @@ body.dark-mode .site-footer {
 
   .reservation-card {
     top: 0.85rem;
-    right: 0.65rem;
+    right: 0.7rem;
   }
 
   .special-card {
-    right: 0.65rem;
-    bottom: -1.85rem;
+    right: 0.7rem;
+    bottom: -1.55rem;
   }
 
   .today-badge {
-    top: 0.65rem;
-    left: 0.65rem;
+    top: 0.7rem;
+    left: 0.7rem;
     min-width: 9.6rem;
   }
 
@@ -1262,11 +1331,16 @@ body.dark-mode .site-footer {
 
 @media (max-width: 399.98px) {
   .hero-image-frame {
-    height: 22rem;
+    border-radius: 1.75rem;
   }
 
   .hero-visual {
-    padding-bottom: 10.75rem;
+    padding-bottom: 9.35rem;
+  }
+
+  .hero-visual::before {
+    inset: 0 0 2.4rem;
+    border-radius: 1.85rem;
   }
 
   .floating-card {
@@ -1279,17 +1353,17 @@ body.dark-mode .site-footer {
   }
 
   .reservation-card {
-    right: 0.55rem;
+    right: 0.6rem;
   }
 
   .special-card {
-    right: 0.55rem;
-    bottom: -1.65rem;
+    right: 0.6rem;
+    bottom: -1.35rem;
   }
 
   .today-badge {
-    left: 0.55rem;
-    top: 0.55rem;
+    left: 0.6rem;
+    top: 0.6rem;
     min-width: 9.1rem;
     padding: 0.72rem 0.85rem 0.76rem;
   }
