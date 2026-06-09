@@ -24,19 +24,22 @@ Borddeaux & Brich Fine Dining is a premium editorial-inspired restaurant landing
 
 ## Folder Structure
 ```text
-restaurant-landing-page/
+build-project-1-only-restaurant-landing/
 ├── index.html
+├── README.md
 ├── css/
 │   └── custom.css
 ├── js/
 │   └── main.js
 ├── assets/
-│   └── images/
-└── README.md
+│   ├── images/
+│   │   └── hero-poster.jpg
+│   └── videos/
+│       └── hero-dining-video.mov
 ```
 
 ## How to Run Locally
-1. Open the `restaurant-landing-page` folder.
+1. Open the `build-project-1-only-restaurant-landing` folder.
 2. Double-click `index.html`, or open it in any modern browser.
 3. No build step or server is required.
 
