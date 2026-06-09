@@ -1,4 +1,4 @@
-# Borddeaux & Brich Fine Dining - Restaurant Landing Page
+# Borddeaux & Brich Fine Dining
 
 ## Project Name
 Borddeaux & Brich Fine Dining is a premium editorial-inspired restaurant landing page built as a responsive single-page website.
@@ -41,6 +41,6 @@ restaurant-landing-page/
 3. No build step or server is required.
 
 ## Screenshots
-- Homepage hero section: `Add screenshot here`
-- Signature dishes section: `Add screenshot here`
-- Mobile responsive view: `Add screenshot here`
+- Borddeaux & Brich Fine Dining homepage hero section: `Add screenshot here`
+- Borddeaux & Brich Fine Dining signature dishes section: `Add screenshot here`
+- Borddeaux & Brich Fine Dining mobile responsive view: `Add screenshot here`
