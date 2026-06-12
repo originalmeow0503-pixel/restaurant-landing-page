@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Borddeaux &amp; Brich Fine Dining</title>
+  <title>Bordeaux &amp; Birch Fine Dining</title>
   <meta
     name="description"
-    content="Borddeaux &amp; Brich Fine Dining offers crafted tasting experiences, signature dishes, and luxury ambience in a premium editorial-inspired restaurant landing page."
+    content="Bordeaux &amp; Birch Fine Dining is a family-owned restaurant in Mumbai with dinner service, a warm dining room, and freshly prepared plates."
   >
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,10 +30,10 @@
   <a class="skip-link" href="#main-content">Skip to content</a>
 
   <!-- Sticky navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light borddeaux-navbar fixed-top" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-light bordeaux-navbar fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand borddeaux-brand" href="#home" aria-label="Borddeaux &amp; Brich Fine Dining home">
-        <span class="brand-title">Borddeaux &amp; Brich</span>
+      <a class="navbar-brand bordeaux-brand" href="#home" aria-label="Bordeaux &amp; Birch Fine Dining home">
+        <span class="brand-title">Bordeaux &amp; Birch</span>
         <span class="brand-subtitle">Fine Dining</span>
       </a>
 
@@ -41,6 +41,7 @@
         <button
           class="btn btn-link theme-toggle"
           id="themeToggle"
+          data-theme-toggle="desktop"
           type="button"
           aria-label="Toggle dark mode"
           aria-pressed="false"
@@ -69,6 +70,17 @@
           <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
           <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item d-sm-none">
+            <button
+              class="nav-link mobile-theme-toggle"
+              data-theme-toggle="mobile"
+              type="button"
+              aria-label="Toggle dark mode"
+              aria-pressed="false"
+            >
+              Dark mode
+            </button>
+          </li>
           <li class="nav-item d-sm-none"><a class="nav-link reserve-mobile" href="#contact">Reserve a Table</a></li>
         </ul>
       </div>
@@ -78,7 +90,7 @@
   <main id="main-content">
     <!-- Hero -->
     <section class="hero-section position-relative overflow-hidden" id="home">
-      <div class="hero-text-bg" aria-hidden="true">Borddeaux &amp; Brich</div>
+      <div class="hero-text-bg" aria-hidden="true">Bordeaux &amp; Birch</div>
       <div class="hero-accent hero-accent-left" aria-hidden="true"></div>
       <div class="hero-accent hero-accent-right" aria-hidden="true"></div>
 
@@ -86,17 +98,23 @@
         <div class="row align-items-center gy-5 hero-row">
           <div class="col-lg-5">
             <div class="hero-copy reveal">
-              <p class="eyebrow">Fine dining &amp; crafted experiences</p>
+              <p class="eyebrow">Family-owned in Mumbai</p>
               <div class="hero-intro-text">
-                <h1>Taste the art of <span>fine dining</span></h1>
+                <h1>Dinner at <span>Bordeaux &amp; Birch</span></h1>
                 <p class="hero-description">
-                  At Borddeaux &amp; Brich, every plate is composed with precision, seasonal produce, and a sense of theatre that lingers long after the final course.
+                  A warm dining room in Bandra for long dinners, good conversation, and plates made fresh each evening.
                 </p>
               </div>
               <div class="hero-actions">
-                <a class="btn btn-dark-custom" href="#menu">Explore Menu</a>
-                <a class="btn btn-outline-dark-custom" href="#contact">Reserve Table</a>
+                <a class="btn btn-dark-custom" href="#menu">View Menu</a>
+                <a class="btn btn-outline-dark-custom" href="#contact">Book a Table</a>
               </div>
+              <ul class="hero-details list-unstyled">
+                <li>Family-owned</li>
+                <li>Mumbai</li>
+                <li>Dinner service</li>
+                <li>Freshly prepared</li>
+              </ul>
             </div>
           </div>
 
@@ -104,24 +122,10 @@
             <div class="hero-visual reveal">
               <div class="hero-image-frame">
                 <div class="hero-media-overlay" aria-hidden="true"></div>
-                <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-poster.jpg" aria-label="Borddeaux &amp; Brich fine dining background video" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback" tabindex="-1">
-                  <source src="assets/videos/hero-dining-video.mov" type="video/quicktime">
+                <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-poster.jpg" aria-label="Bordeaux &amp; Birch fine dining background video" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback" tabindex="-1">
+                  <source src="assets/videos/hero-dining-video.mp4" type="video/mp4">
                 </video>
               </div>
-
-              <article class="floating-card reservation-card hero-floating-card">
-                <div class="floating-icon"><i class="bi bi-calendar2-check"></i></div>
-                <p class="floating-label">Reservation</p>
-                <h2>Book your table for an unforgettable evening.</h2>
-                <a href="#contact">Book now <i class="bi bi-arrow-right"></i></a>
-              </article>
-
-              <article class="floating-card special-card hero-floating-card">
-                <div class="floating-icon"><i class="bi bi-stars"></i></div>
-                <p class="floating-label">Chef&rsquo;s Special</p>
-                <h2>Truffle Mushroom Risotto with aged parmesan.</h2>
-                <a href="#menu">View details <i class="bi bi-arrow-right"></i></a>
-              </article>
 
               <div class="today-badge hero-floating-card" id="todaySpecialBadge" aria-live="polite">
                 <span class="today-badge-label">Today&rsquo;s Special</span>
@@ -138,8 +142,9 @@
       <div class="container">
         <div class="section-heading reveal">
           <div>
-            <p class="eyebrow">Our bestsellers</p>
-            <h2>Signature Dishes</h2>
+            <p class="eyebrow">Dinner menu</p>
+            <h2>House Favorites</h2>
+            <p class="section-note">Freshly prepared in Mumbai for dinner service each night.</p>
           </div>
           <div class="category-filter" role="tablist" aria-label="Filter dishes">
             <button class="filter-btn active" type="button" data-filter="all">All</button>
@@ -164,7 +169,7 @@
                   <h3>Seared Scallops</h3>
                   <span>₹649</span>
                 </div>
-                <p>Pan-seared scallops with cauliflower puree and brown butter crumble.</p>
+                <p>Brown butter, cauliflower puree, and herbs.</p>
               </div>
             </article>
           </div>
@@ -183,7 +188,7 @@
                   <h3>Truffle Pasta</h3>
                   <span>₹599</span>
                 </div>
-                <p>Handmade tagliatelle with black truffle cream, parmesan, and thyme.</p>
+                <p>Tagliatelle, truffle cream, parmesan, and thyme.</p>
               </div>
             </article>
           </div>
@@ -202,7 +207,7 @@
                   <h3>Grilled Salmon</h3>
                   <span>₹699</span>
                 </div>
-                <p>Norwegian salmon with asparagus, citrus glaze, and lemon beurre blanc.</p>
+                <p>Asparagus, citrus glaze, and lemon butter sauce.</p>
               </div>
             </article>
           </div>
@@ -221,7 +226,7 @@
                   <h3>Lamb Rack</h3>
                   <span>₹899</span>
                 </div>
-                <p>Herb-crusted lamb with rosemary jus and charred seasonal vegetables.</p>
+                <p>Rosemary jus and charred vegetables.</p>
               </div>
             </article>
           </div>
@@ -240,7 +245,7 @@
                   <h3>Chocolate Fondant</h3>
                   <span>₹449</span>
                 </div>
-                <p>Warm fondant with vanilla bean ice cream and cocoa soil.</p>
+                <p>Warm center with vanilla ice cream.</p>
               </div>
             </article>
           </div>
@@ -259,7 +264,7 @@
                   <h3>Heirloom Burrata</h3>
                   <span>₹525</span>
                 </div>
-                <p>Creamy burrata, heirloom tomatoes, basil oil, and toasted sourdough shards.</p>
+                <p>Tomatoes, basil oil, and toasted sourdough.</p>
               </div>
             </article>
           </div>
@@ -278,7 +283,7 @@
                   <h3>Citrus Tart</h3>
                   <span>₹399</span>
                 </div>
-                <p>Silken lemon curd tart with candied zest and fresh berries.</p>
+                <p>Lemon curd, candied zest, and berries.</p>
               </div>
             </article>
           </div>
@@ -286,8 +291,8 @@
           <div class="col-sm-6 col-lg-3 menu-item reveal" data-category="mains">
             <article class="dish-card h-100">
               <img
-                src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80"
-                alt="Beef steak plated with roasted potatoes"
+                src="https://www.lemairerestaurant.com/images/content/home/beef-tenderloin.jpg"
+                alt="Charred beef tenderloin plated with vegetables and jus on a white plate"
                 class="dish-image"
                 loading="lazy"
                 decoding="async"
@@ -297,7 +302,7 @@
                   <h3>Charred Tenderloin</h3>
                   <span>₹945</span>
                 </div>
-                <p>Wood-fired tenderloin with pomme puree, jus, and smoked shallots.</p>
+                <p>Mashed potatoes, jus, and smoked shallots.</p>
               </div>
             </article>
           </div>
@@ -312,30 +317,30 @@
           <div class="col-lg-5">
             <div class="about-copy reveal">
               <p class="eyebrow">Our story</p>
-              <h2>More than a meal, it&rsquo;s an experience.</h2>
+              <h2>A neighborhood dining room with a little polish.</h2>
               <p>
-                Founded with a passion for exceptional food and warm hospitality, Borddeaux &amp; Brich blends seasonal ingredients, modern technique, and timeless service into evenings that feel intimate and elevated.
+                Bordeaux &amp; Birch is a family-owned restaurant in Bandra, Mumbai. We keep the room relaxed, the service friendly, and the food thoughtful without making dinner feel formal.
               </p>
               <p>
-                From candlelit tables to thoughtful wine pairings, every detail is curated to create a memorable atmosphere for celebrations, quiet moments, and shared stories.
+                Most guests come by for dinner, stay longer than planned, and order a mix of house favorites, dessert, and one more drink before heading home.
               </p>
             </div>
 
             <div class="highlight-grid reveal">
               <article class="highlight-card">
                 <i class="bi bi-flower1"></i>
-                <h3>Sustainable</h3>
-                <p>Ethically sourced produce and mindful seasonal menus.</p>
+                <h3>Family-owned</h3>
+                <p>Run by a small team that remembers regulars.</p>
               </article>
               <article class="highlight-card">
                 <i class="bi bi-basket2"></i>
-                <h3>Fresh Ingredients</h3>
-                <p>Daily ingredients selected from trusted local partners.</p>
+                <h3>Freshly prepared</h3>
+                <p>Plates are made to order in our Mumbai kitchen.</p>
               </article>
               <article class="highlight-card">
                 <i class="bi bi-lamp"></i>
-                <h3>Luxury Ambience</h3>
-                <p>Soft lighting, sculpted interiors, and refined comfort.</p>
+                <h3>Dinner service</h3>
+                <p>A calm room for weeknight meals and special occasions.</p>
               </article>
             </div>
           </div>
@@ -350,8 +355,9 @@
                 decoding="async"
               >
               <div class="about-floating-note">
-                <p class="floating-label">Borddeaux &amp; Brich Promise</p>
-                <h3>Thoughtful hospitality, beautifully plated.</h3>
+                <p class="floating-label">Bordeaux &amp; Birch</p>
+                <h3>Bandra, Mumbai.</h3>
+                <p>Freshly prepared plates and warm dinner service.</p>
               </div>
             </div>
           </div>
@@ -489,8 +495,8 @@
           <div class="col-lg-4">
             <div class="testimonial-copy reveal">
               <p class="eyebrow">What our guests say</p>
-              <h2>Moments that stay with you</h2>
-              <p>Warm service, memorable courses, and evenings worth celebrating.</p>
+              <h2>People come back for the food and the easy atmosphere.</h2>
+              <p>Kind service, good portions, and a room that feels comfortable.</p>
             </div>
           </div>
 
@@ -501,7 +507,7 @@
                   <article class="testimonial-card reveal">
                     <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
                     <p>
-                      “The ambience, the food, and the service were everything we hoped for and more. A flawless anniversary dinner.”
+                      “Lovely service and really good food. We came for an anniversary and stayed longer than planned.”
                     </p>
                     <h3>Ananya S.</h3>
                   </article>
@@ -510,7 +516,7 @@
                   <article class="testimonial-card reveal">
                     <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
                     <p>
-                      “Every bite felt considered. The chef&rsquo;s tasting menu was beautifully paced, rich, and unforgettable.”
+                      “The truffle pasta and salmon were both excellent. We&rsquo;ll gladly come back for dinner.”
                     </p>
                     <h3>Vikram R.</h3>
                   </article>
@@ -519,7 +525,7 @@
                   <article class="testimonial-card reveal">
                     <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
                     <p>
-                      “Borddeaux &amp; Brich never disappoints. Elegant but never stiff, and the lamb rack is one of the best in the city.”
+                      “Bordeaux &amp; Birch never feels stuffy, and the lamb rack is still one of my favorites in the city.”
                     </p>
                     <h3>Neha K.</h3>
                   </article>
@@ -528,7 +534,7 @@
                   <article class="testimonial-card reveal">
                     <div class="stars" aria-label="4 out of 5 stars">★★★★☆</div>
                     <p>
-                      “A refined setting for client dinners. The team handled every detail with professionalism and warmth.”
+                      “A good spot for a quiet work dinner. The team was helpful and everything ran on time.”
                     </p>
                     <h3>Rohan M.</h3>
                   </article>
@@ -569,7 +575,7 @@
               <div class="row g-4">
                 <div class="col-lg-7">
                   <p class="eyebrow">Reserve your table</p>
-                  <h2>Plan your next evening at Borddeaux &amp; Brich.</h2>
+                  <h2>Book a table at Bordeaux &amp; Birch.</h2>
 
                   <form id="reservationForm" novalidate>
                     <div class="row g-3">
@@ -636,7 +642,7 @@
                     <ul class="contact-list list-unstyled">
                       <li><i class="bi bi-geo-alt"></i><span>123 Culinary Street, Bandra, Mumbai 400050</span></li>
                       <li><i class="bi bi-telephone"></i><a href="tel:+919876543210">+91 98765 43210</a></li>
-                      <li><i class="bi bi-envelope"></i><a href="mailto:hello@borddeauxbrich.com">hello@borddeauxbrich.com</a></li>
+                      <li><i class="bi bi-envelope"></i><a href="mailto:hello@bordeauxbirch.com">hello@bordeauxbirch.com</a></li>
                     </ul>
                     <div class="social-links" aria-label="Social links">
                       <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
@@ -653,7 +659,7 @@
           <div class="col-xl-5">
             <div class="map-card reveal">
               <iframe
-                title="Borddeaux &amp; Brich Fine Dining location map"
+                title="Bordeaux &amp; Birch Fine Dining location map"
                 src="https://www.google.com/maps?q=Bandra%20Mumbai&z=13&output=embed"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
@@ -670,9 +676,9 @@
     <div class="container">
       <div class="row g-4">
         <div class="col-lg-3">
-          <a class="footer-brand" href="#home">Borddeaux &amp; Brich</a>
+          <a class="footer-brand" href="#home">Bordeaux &amp; Birch</a>
           <p class="footer-copy">
-            Crafting memorable dining experiences through passion, creativity, and the finest ingredients.
+            Family-owned restaurant in Bandra, Mumbai, serving dinner all week.
           </p>
         </div>
         <div class="col-sm-6 col-lg-3">
@@ -701,7 +707,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2026 Borddeaux &amp; Brich Fine Dining. All rights reserved.</p>
+        <p>&copy; 2026 Bordeaux &amp; Birch Fine Dining. All rights reserved.</p>
       </div>
     </div>
   </footer>

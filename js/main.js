@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const reviewsCarousel = document.getElementById("reviewsCarousel");
   const reservationForm = document.getElementById("reservationForm");
   const formStatus = document.getElementById("formStatus");
-  const themeToggle = document.getElementById("themeToggle");
+  const themeToggles = document.querySelectorAll("[data-theme-toggle]");
   const todaySpecialName = document.getElementById("todaySpecialName");
   const heroVideo = document.querySelector(".hero-video");
   const animatedElements = document.querySelectorAll(".reveal");
@@ -20,10 +20,10 @@ document.addEventListener("DOMContentLoaded", () => {
     0: "Citrus Tart",
     1: "Black Truffle Pasta",
     2: "Charred Tenderloin",
-    3: "Chef’s Seafood Selection",
+    3: "Seafood Plate",
     4: "Slow-Roasted Lamb",
-    5: "Borddeaux & Brich Tasting Menu",
-    6: "Signature Dessert"
+    5: "Bordeaux & Birch Dinner Menu",
+    6: "House Dessert"
   };
 
   const applyNavbarState = () => {
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getStoredTheme = () => {
     try {
-      return window.localStorage.getItem("borddeaux-brich-theme");
+      return window.localStorage.getItem("bordeaux-birch-theme");
     } catch (error) {
       return null;
     }
@@ -123,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const storeTheme = (theme) => {
     try {
-      window.localStorage.setItem("borddeaux-brich-theme", theme);
+      window.localStorage.setItem("bordeaux-birch-theme", theme);
     } catch (error) {
       // Ignore storage failures so the visual toggle still works everywhere.
     }
@@ -132,10 +132,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const setTheme = (theme) => {
     const isDark = theme === "dark";
     document.body.classList.toggle("dark-mode", isDark);
-    themeToggle.setAttribute("aria-pressed", String(isDark));
-    themeToggle.innerHTML = isDark
-      ? '<i class="bi bi-sun"></i>'
-      : '<i class="bi bi-moon-stars"></i>';
+
+    themeToggles.forEach((toggle) => {
+      toggle.setAttribute("aria-pressed", String(isDark));
+
+      if (toggle.classList.contains("theme-toggle")) {
+        toggle.innerHTML = isDark
+          ? '<i class="bi bi-sun"></i>'
+          : '<i class="bi bi-moon-stars"></i>';
+      } else {
+        toggle.textContent = isDark ? "Light mode" : "Dark mode";
+      }
+    });
+
     storeTheme(theme);
   };
 
@@ -323,9 +332,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  themeToggle.addEventListener("click", () => {
-    const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
-    setTheme(nextTheme);
+  themeToggles.forEach((toggle) => {
+    toggle.addEventListener("click", () => {
+      const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+      setTheme(nextTheme);
+    });
   });
 
   const storedTheme = getStoredTheme();

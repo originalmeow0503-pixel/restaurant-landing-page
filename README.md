@@ -1,11 +1,11 @@
-# Borddeaux & Brich Fine Dining
+# Bordeaux & Birch Fine Dining
 
 ## Project Name
-Borddeaux & Brich Fine Dining is a premium editorial-inspired restaurant landing page built as a responsive single-page website.
+Bordeaux & Birch Fine Dining is a responsive single-page restaurant landing page with a warm, simple presentation and a strong focus on dinner service in Mumbai.
 
 ## Features
 - Sticky responsive navbar with smooth scrolling and active section highlight
-- Luxury hero section with floating cards and JavaScript-powered daily special badge
+- Hero section with background video and JavaScript-powered daily special badge
 - Filterable signature dishes menu grid
 - Story-driven about section with highlight cards
 - Clickable gallery with Bootstrap modal lightbox
@@ -24,7 +24,7 @@ Borddeaux & Brich Fine Dining is a premium editorial-inspired restaurant landing
 
 ## Folder Structure
 ```text
-build-project-1-only-restaurant-landing/
+.
 ├── index.html
 ├── README.md
 ├── css/
@@ -35,15 +35,19 @@ build-project-1-only-restaurant-landing/
 │   ├── images/
 │   │   └── hero-poster.jpg
 │   └── videos/
-│       └── hero-dining-video.mov
+│       └── hero-dining-video.mp4
+└── screenshots/
+    ├── desktop-home.png
+    ├── menu-section.png
+    └── mobile-view.png
 ```
 
 ## How to Run Locally
-1. Open the `build-project-1-only-restaurant-landing` folder.
+1. Open the repository root folder.
 2. Double-click `index.html`, or open it in any modern browser.
 3. No build step or server is required.
 
 ## Screenshots
-- Borddeaux & Brich Fine Dining homepage hero section: `Add screenshot here`
-- Borddeaux & Brich Fine Dining signature dishes section: `Add screenshot here`
-- Borddeaux & Brich Fine Dining mobile responsive view: `Add screenshot here`
+- Homepage hero section: `screenshots/desktop-home.png`
+- Menu section: `screenshots/menu-section.png`
+- Mobile view: `screenshots/mobile-view.png`
