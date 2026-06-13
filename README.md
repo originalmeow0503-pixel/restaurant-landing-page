@@ -48,15 +48,6 @@ Bordeaux & Birch Fine Dining is a responsive single-page restaurant landing page
 3. No build step or server is required.
 
 ## Screenshots
-
-### Homepage - Desktop View
-
-![Homepage Desktop](screenshots/desktop-home.png)
-
-### Menu Section
-
-![Menu Section](screenshots/menu-section.png)
-
-### Mobile View
-
-![Mobile View](screenshots/mobile-view.png)
+- Homepage hero section: `screenshots/desktop-home.png`
+- Menu section: `screenshots/menu-section.png`
+- Mobile view: `screenshots/mobile-view.png`
