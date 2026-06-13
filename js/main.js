@@ -1,333 +1,231 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Cache the key UI nodes once so the interaction code stays predictable.
-  const navbar = document.getElementById("mainNav");
-  const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
-  const sections = document.querySelectorAll("main section[id]");
-  const filterButtons = document.querySelectorAll(".filter-btn");
-  const menuItems = document.querySelectorAll(".menu-item");
-  const galleryItems = document.querySelectorAll(".gallery-item");
-  const galleryModalImage = document.getElementById("galleryModalImage");
-  const reviewsCarousel = document.getElementById("reviewsCarousel");
-  const reservationForm = document.getElementById("reservationForm");
-  const formStatus = document.getElementById("formStatus");
-  const themeToggles = document.querySelectorAll("[data-theme-toggle]");
-  const todaySpecialName = document.getElementById("todaySpecialName");
-  const heroVideo = document.querySelector(".hero-video");
-  const animatedElements = document.querySelectorAll(".reveal");
-  const formFieldIds = ["name", "email", "phone", "date", "guests", "message"];
+  const $ = (selector, scope = document) => scope.querySelector(selector);
+  const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
-  const todaysSpecials = {
-    0: "Citrus Tart",
-    1: "Black Truffle Pasta",
-    2: "Charred Tenderloin",
-    3: "Seafood Plate",
-    4: "Slow-Roasted Lamb",
-    5: "Bordeaux & Birch Dinner Menu",
-    6: "House Dessert"
-  };
+  const navbar = $("#mainNav"), navbarMenu = $("#navbarMenu"), filterWrap = $(".category-filter");
+  const galleryGrid = $(".gallery-grid"), galleryModalImage = $("#galleryModalImage");
+  const reviewsCarousel = $("#reviewsCarousel"), reservationForm = $("#reservationForm");
+  const formStatus = $("#formStatus"), todaySpecialName = $("#todaySpecialName");
+  const heroVideo = $(".hero-video"), reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const navLinks = $$(".navbar-nav .nav-link"), sections = $$("main section[id]");
+  const filterButtons = $$(".filter-btn"), menuItems = $$(".menu-item");
+  const themeToggles = $$("[data-theme-toggle]"), revealItems = $$(".reveal");
 
-  const applyNavbarState = () => {
-    const offset = window.scrollY;
-    navbar.classList.toggle("scrolled", offset > 24);
+  const themeKey = "bordeaux-birch-theme";
+  const fieldIds = ["name", "email", "phone", "date", "guests", "message"];
+  const specials = ["Citrus Tart", "Black Truffle Pasta", "Charred Tenderloin", "Seafood Plate", "Slow-Roasted Lamb", "Bordeaux & Birch Dinner Menu", "House Dessert"];
+  const fields = Object.fromEntries(fieldIds.map((id) => [id, { input: $(`#${id}`), error: $(`#${id}Error`) }]));
 
-    let currentSection = "home";
+  function readTheme() {
+    try { return window.localStorage.getItem(themeKey); } catch { return null; }
+  }
 
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop - 140;
-      const sectionHeight = section.offsetHeight;
+  function saveTheme(theme) {
+    try { window.localStorage.setItem(themeKey, theme); } catch {}
+  }
 
-      if (offset >= sectionTop && offset < sectionTop + sectionHeight) {
-        currentSection = section.getAttribute("id");
-      }
-    });
-
-    navLinks.forEach((link) => {
-      const isActive = link.getAttribute("href") === `#${currentSection}`;
-      link.classList.toggle("active", isActive);
-      if (isActive) {
-        link.setAttribute("aria-current", "page");
-      } else {
-        link.removeAttribute("aria-current");
-      }
-    });
-  };
-
-  const setTodaySpecial = () => {
-    const dayIndex = new Date().getDay();
-    todaySpecialName.textContent = todaysSpecials[dayIndex];
-  };
-
-  const keepHeroVideoLooping = () => {
-    if (!heroVideo) {
-      return;
-    }
-
-    const playHeroVideo = () => {
-      const playPromise = heroVideo.play();
-
-      if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(() => {
-          // Ignore autoplay interruptions and let the browser retry naturally.
-        });
-      }
-    };
-
-    heroVideo.addEventListener("ended", () => {
-      heroVideo.currentTime = 0;
-      playHeroVideo();
-    });
-
-    heroVideo.addEventListener("canplay", playHeroVideo, { once: true });
-
-    document.addEventListener("visibilitychange", () => {
-      if (!document.hidden && heroVideo.paused) {
-        playHeroVideo();
-      }
-    });
-  };
-
-  const filterMenu = (filter) => {
-    menuItems.forEach((item) => {
-      const category = item.dataset.category;
-      const shouldShow = filter === "all" || filter === category;
-      item.classList.toggle("is-hidden", !shouldShow);
-    });
-  };
-
-  const setRevealMetadata = () => {
-    document.querySelectorAll("#menuGrid .menu-item").forEach((item, index) => {
-      item.style.setProperty("--reveal-delay", `${Math.min(index, 5) * 80}ms`);
-    });
-
-    document.querySelectorAll(".gallery-grid .reveal").forEach((item, index) => {
-      item.style.setProperty("--reveal-delay", `${index * 70}ms`);
-    });
-
-    document.querySelectorAll("#reviewsCarousel .testimonial-card").forEach((item, index) => {
-      item.style.setProperty("--reveal-delay", `${index * 90}ms`);
-    });
-
-    document.querySelector(".about-copy")?.setAttribute("data-reveal-origin", "left");
-    document.querySelector(".about-visual")?.setAttribute("data-reveal-origin", "right");
-    document.querySelector(".contact-card")?.setAttribute("data-reveal-origin", "left");
-    document.querySelector(".map-card")?.setAttribute("data-reveal-origin", "right");
-  };
-
-  const getStoredTheme = () => {
-    try {
-      return window.localStorage.getItem("bordeaux-birch-theme");
-    } catch (error) {
-      return null;
-    }
-  };
-
-  const storeTheme = (theme) => {
-    try {
-      window.localStorage.setItem("bordeaux-birch-theme", theme);
-    } catch (error) {
-      // Ignore storage failures so the visual toggle still works everywhere.
-    }
-  };
-
-  const setTheme = (theme) => {
+  function setTheme(theme) {
     const isDark = theme === "dark";
     document.body.classList.toggle("dark-mode", isDark);
 
     themeToggles.forEach((toggle) => {
       toggle.setAttribute("aria-pressed", String(isDark));
-
       if (toggle.classList.contains("theme-toggle")) {
-        toggle.innerHTML = isDark
-          ? '<i class="bi bi-sun"></i>'
-          : '<i class="bi bi-moon-stars"></i>';
+        toggle.innerHTML = isDark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon-stars"></i>';
       } else {
         toggle.textContent = isDark ? "Light mode" : "Dark mode";
       }
     });
 
-    storeTheme(theme);
-  };
+    saveTheme(theme);
+  }
 
-  const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
-  const validatePhone = (value) => value.replace(/\D/g, "").length >= 10;
+  function updateNavbar() {
+    const scrollTop = window.scrollY;
+    let currentSection = "home";
 
-  const setFormStatus = (message = "", type = "") => {
-    formStatus.textContent = message;
-    formStatus.classList.remove("is-visible", "is-success", "is-error");
+    navbar?.classList.toggle("scrolled", scrollTop > 24);
+    sections.forEach((section) => {
+      if (scrollTop >= section.offsetTop - 140) currentSection = section.id;
+    });
 
-    if (!message) {
+    navLinks.forEach((link) => {
+      const isActive = link.getAttribute("href") === `#${currentSection}`;
+      link.classList.toggle("active", isActive);
+      if (isActive) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+  }
+
+  function closeMobileNavbar() {
+    if (!navbarMenu || !navbarMenu.classList.contains("show") || !window.bootstrap) return;
+    bootstrap.Collapse.getOrCreateInstance(navbarMenu).hide();
+  }
+
+  function filterMenu(category) {
+    menuItems.forEach((item) => item.classList.toggle("is-hidden", category !== "all" && item.dataset.category !== category));
+  }
+
+  function setTodaySpecial() {
+    if (todaySpecialName) todaySpecialName.textContent = specials[new Date().getDay()];
+  }
+
+  function keepHeroVideoPlaying() {
+    if (!heroVideo) return;
+
+    const playVideo = () => {
+      const promise = heroVideo.play();
+      if (promise && typeof promise.catch === "function") promise.catch(() => {});
+    };
+
+    heroVideo.addEventListener("canplay", playVideo, { once: true });
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && heroVideo.paused) playVideo();
+    });
+    playVideo();
+  }
+
+  function addRevealDelay(selector, step, maxIndex = Infinity) {
+    $$(selector).forEach((item, index) => item.style.setProperty("--reveal-delay", `${Math.min(index, maxIndex) * step}ms`));
+  }
+
+  function revealActiveTestimonial() {
+    $(".carousel-item.active .testimonial-card", reviewsCarousel)?.classList.add("reveal-active");
+  }
+
+  function setupReveal() {
+    addRevealDelay("#menuGrid .menu-item", 80, 5);
+    addRevealDelay(".gallery-grid .reveal", 70);
+    addRevealDelay("#reviewsCarousel .testimonial-card", 90);
+
+    [
+      [".about-copy", "left"],
+      [".about-visual", "right"],
+      [".contact-card", "left"],
+      [".map-card", "right"]
+    ].forEach(([selector, side]) => $(selector)?.setAttribute("data-reveal-origin", side));
+
+    if (reducedMotion) {
+      revealItems.forEach((item) => item.classList.add("reveal-active"));
       return;
     }
 
-    formStatus.classList.add("is-visible");
-    if (type) {
-      formStatus.classList.add(type === "success" ? "is-success" : "is-error");
-    }
-  };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("reveal-active");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.14, rootMargin: "0px 0px -8% 0px" });
 
-  const setFieldError = (fieldId, message) => {
-    const field = document.getElementById(fieldId);
-    const errorNode = document.getElementById(`${fieldId}Error`);
-
-    field.classList.toggle("is-invalid", Boolean(message));
-    field.setAttribute("aria-invalid", String(Boolean(message)));
-    field.setAttribute("aria-describedby", `${fieldId}Error`);
-    errorNode.textContent = message;
-  };
-
-  const validateField = (fieldId) => {
-    const field = document.getElementById(fieldId);
-    const value = field.value.trim();
-
-    switch (fieldId) {
-      case "name":
-        setFieldError(fieldId, value ? "" : "Please enter your name.");
-        return Boolean(value);
-      case "email":
-        if (!value) {
-          setFieldError(fieldId, "Please enter your email address.");
-          return false;
-        }
-        if (!validateEmail(value)) {
-          setFieldError(fieldId, "Please enter a valid email address.");
-          return false;
-        }
-        setFieldError(fieldId, "");
-        return true;
-      case "phone":
-        if (!value) {
-          setFieldError(fieldId, "Please enter your phone number.");
-          return false;
-        }
-        if (!validatePhone(value)) {
-          setFieldError(fieldId, "Phone number must include at least 10 digits.");
-          return false;
-        }
-        setFieldError(fieldId, "");
-        return true;
-      case "date":
-        setFieldError(fieldId, value ? "" : "Please select a reservation date.");
-        return Boolean(value);
-      case "guests":
-        setFieldError(fieldId, value ? "" : "Please select the number of guests.");
-        return Boolean(value);
-      case "message":
-        if (!value) {
-          setFieldError(fieldId, "Please share a few reservation details.");
-          return false;
-        }
-        if (value.length < 12) {
-          setFieldError(fieldId, "Message should be at least 12 characters long.");
-          return false;
-        }
-        setFieldError(fieldId, "");
-        return true;
-      default:
-        return true;
-    }
-  };
-
-  const validateForm = () => {
-    let firstInvalidField = null;
-
-    formFieldIds.forEach((fieldId) => {
-      const isValid = validateField(fieldId);
-      if (!isValid && !firstInvalidField) {
-        firstInvalidField = document.getElementById(fieldId);
-      }
-    });
-
-    return {
-      isValid: !firstInvalidField,
-      firstInvalidField
-    };
-  };
-
-  const activateVisibleTestimonial = () => {
-    reviewsCarousel?.querySelectorAll(".carousel-item.active .testimonial-card").forEach((card) => {
-      card.classList.add("reveal-active");
-    });
-  };
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    animatedElements.forEach((element) => element.classList.add("reveal-active"));
-  } else {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("reveal-active");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.14,
-        rootMargin: "0px 0px -8% 0px"
-      }
-    );
-
-    animatedElements.forEach((element) => revealObserver.observe(element));
+    revealItems.forEach((item) => observer.observe(item));
   }
 
-  setRevealMetadata();
-  activateVisibleTestimonial();
-  keepHeroVideoLooping();
-  reviewsCarousel?.addEventListener("slid.bs.carousel", activateVisibleTestimonial);
+  function setFormStatus(message = "", type = "") {
+    if (!formStatus) return;
 
-  navLinks.forEach((link) => {
-    link.addEventListener("click", () => {
-      const navbarCollapse = document.querySelector(".navbar-collapse.show");
-      if (navbarCollapse) {
-        const collapseInstance = bootstrap.Collapse.getOrCreateInstance(navbarCollapse);
-        collapseInstance.hide();
-      }
-    });
+    formStatus.textContent = message;
+    formStatus.classList.remove("is-visible", "is-success", "is-error");
+    if (!message) return;
+
+    formStatus.classList.add("is-visible");
+    if (type) formStatus.classList.add(type === "success" ? "is-success" : "is-error");
+  }
+
+  function setFieldError(id, message) {
+    const field = fields[id];
+    if (!field) return;
+
+    field.input.classList.toggle("is-invalid", Boolean(message));
+    field.input.setAttribute("aria-invalid", String(Boolean(message)));
+    field.input.setAttribute("aria-describedby", `${id}Error`);
+    field.error.textContent = message;
+  }
+
+  function validateEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+  }
+
+  function validatePhone(value) {
+    return value.replace(/\D/g, "").length >= 10;
+  }
+
+  const validators = {
+    name: (value) => value ? "" : "Please enter your name.",
+    email: (value) => {
+      if (!value) return "Please enter your email address.";
+      return validateEmail(value) ? "" : "Please enter a valid email address.";
+    },
+    phone: (value) => {
+      if (!value) return "Please enter your phone number.";
+      return validatePhone(value) ? "" : "Phone number must include at least 10 digits.";
+    },
+    date: (value) => value ? "" : "Please select a reservation date.",
+    guests: (value) => value ? "" : "Please select the number of guests.",
+    message: (value) => {
+      if (!value) return "Please share a few reservation details.";
+      return value.length >= 12 ? "" : "Message should be at least 12 characters long.";
+    }
+  };
+
+  function validateField(id) {
+    const message = validators[id](fields[id].input.value.trim());
+    setFieldError(id, message);
+    return !message;
+  }
+
+  function validateForm() {
+    for (const id of fieldIds) {
+      if (!validateField(id)) return fields[id].input;
+    }
+    return null;
+  }
+
+  filterWrap?.addEventListener("click", (event) => {
+    const button = event.target.closest(".filter-btn");
+    if (!button) return;
+
+    filterButtons.forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+    filterMenu(button.dataset.filter || "all");
   });
 
-  filterButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      filterButtons.forEach((item) => item.classList.remove("active"));
-      button.classList.add("active");
-      filterMenu(button.dataset.filter);
-    });
+  galleryGrid?.addEventListener("click", (event) => {
+    const button = event.target.closest(".gallery-item");
+    if (!button || !galleryModalImage) return;
+
+    galleryModalImage.src = button.dataset.image || "";
+    galleryModalImage.alt = button.dataset.alt || "";
   });
 
-  galleryItems.forEach((item) => {
-    item.addEventListener("click", () => {
-      galleryModalImage.src = item.dataset.image;
-      galleryModalImage.alt = item.dataset.alt;
-    });
+  navbarMenu?.addEventListener("click", (event) => {
+    if (event.target.closest('a.nav-link[href^="#"]')) closeMobileNavbar();
   });
 
-  reservationForm.addEventListener("submit", (event) => {
+  reservationForm?.addEventListener("submit", (event) => {
     event.preventDefault();
     setFormStatus();
 
-    const { isValid, firstInvalidField } = validateForm();
-    if (!isValid) {
+    const firstInvalidField = validateForm();
+    if (firstInvalidField) {
       setFormStatus("Please review the highlighted fields and try again.", "error");
-      firstInvalidField?.focus();
+      firstInvalidField.focus();
       return;
     }
 
-    setFormStatus("Reservation request received. We’ll contact you shortly.", "success");
+    setFormStatus("Reservation request received. We'll contact you shortly.", "success");
     reservationForm.reset();
-    formFieldIds.forEach((fieldId) => setFieldError(fieldId, ""));
+    fieldIds.forEach((id) => setFieldError(id, ""));
   });
 
-  formFieldIds.forEach((fieldId) => {
-    const field = document.getElementById(fieldId);
-    const events = field.tagName === "SELECT" || field.type === "date"
-      ? ["change", "blur"]
-      : ["input", "blur"];
+  fieldIds.forEach((id) => {
+    const input = fields[id].input;
+    const events = input.tagName === "SELECT" || input.type === "date" ? ["change", "blur"] : ["input", "blur"];
 
     events.forEach((eventName) => {
-      field.addEventListener(eventName, () => {
-        validateField(fieldId);
-        if (formStatus.classList.contains("is-error")) {
-          setFormStatus();
-        }
+      input.addEventListener(eventName, () => {
+        validateField(id);
+        if (formStatus?.classList.contains("is-error")) setFormStatus();
       });
     });
   });
@@ -339,15 +237,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const storedTheme = getStoredTheme();
-  if (storedTheme === "dark" || storedTheme === "light") {
-    setTheme(storedTheme);
-  } else {
-    setTheme("light");
-  }
+  reviewsCarousel?.addEventListener("slid.bs.carousel", revealActiveTestimonial);
 
+  setTheme(readTheme() === "dark" ? "dark" : "light");
   setTodaySpecial();
   filterMenu("all");
-  applyNavbarState();
-  window.addEventListener("scroll", applyNavbarState, { passive: true });
+  setupReveal();
+  revealActiveTestimonial();
+  keepHeroVideoPlaying();
+  updateNavbar();
+  window.addEventListener("scroll", updateNavbar, { passive: true });
 });
